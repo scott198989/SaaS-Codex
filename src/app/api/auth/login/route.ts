@@ -68,10 +68,24 @@ export async function POST(request: Request) {
     );
   }
 
-  await createSession(user.id);
+  const sessionCookie = await createSession(user.id);
 
   if (wantsHtml(request)) {
-    return NextResponse.redirect(new URL("/dashboard", request.url), { status: 303 });
+    const response = NextResponse.redirect(new URL("/dashboard", request.url), {
+      status: 303,
+    });
+    response.cookies.set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.options
+    );
+    return response;
   }
-  return NextResponse.json({ ok: true });
+  const response = NextResponse.json({ ok: true });
+  response.cookies.set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.options
+  );
+  return response;
 }

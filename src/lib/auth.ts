@@ -20,7 +20,7 @@ export async function verifyPassword(password: string, hash: string) {
   return bcrypt.compare(password, hash);
 }
 
-function sessionCookieOptions(expiresAt: Date) {
+export function sessionCookieOptions(expiresAt: Date) {
   return {
     httpOnly: true,
     sameSite: "lax" as const,
@@ -43,24 +43,31 @@ export async function createSession(userId: string) {
     },
   });
 
-  cookies().set(SESSION_COOKIE, token, sessionCookieOptions(expiresAt));
+  return {
+    name: SESSION_COOKIE,
+    value: token,
+    options: sessionCookieOptions(expiresAt),
+  };
 }
 
 export async function clearSession() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get(SESSION_COOKIE)?.value;
   if (token) {
     await prisma.session.deleteMany({
       where: { tokenHash: hashToken(token) },
     });
   }
-  cookieStore.set(SESSION_COOKIE, "", {
-    ...sessionCookieOptions(new Date(0)),
-  });
+  return {
+    name: SESSION_COOKIE,
+    value: "",
+    options: sessionCookieOptions(new Date(0)),
+  };
 }
 
 export async function getSessionUser() {
-  const token = cookies().get(SESSION_COOKIE)?.value;
+  const cookieStore = await cookies();
+  const token = cookieStore.get(SESSION_COOKIE)?.value;
   if (!token) {
     return null;
   }
