@@ -1,34 +1,32 @@
 import Link from "next/link";
-import { requireUser } from "@/lib/auth";
 
 const navItems = [
-  { href: "/dashboard", label: "Overview" },
-  { href: "/jobs", label: "Runs" },
-  { href: "/exports", label: "Exports" },
-  { href: "/profiles", label: "Cleaning profiles" },
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/lists", label: "Lists" },
+  { href: "/rotations", label: "Rotations" },
+  { href: "/reminders", label: "Reminders" },
   { href: "/billing", label: "Billing" },
   { href: "/settings", label: "Settings" },
 ];
 
-export default async function AppLayout({
+export default function AppLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await requireUser();
   return (
     <div className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 px-6 py-8 lg:grid-cols-[220px_1fr]">
         <aside className="rounded-3xl border border-[color:var(--border)] bg-[color:var(--panel)] p-5">
           <div className="flex items-center gap-3">
             <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[color:var(--foreground)] text-sm font-semibold text-[color:var(--background)]">
-              HDF
+              LL
             </span>
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted-2)]">
-                Workspace
+                LoopList
               </p>
-              <p className="text-sm font-semibold">Primary</p>
+              <p className="text-sm font-semibold">Home</p>
             </div>
           </div>
           <nav className="mt-6 space-y-1 text-sm text-[color:var(--muted)]">
@@ -42,37 +40,27 @@ export default async function AppLayout({
               </Link>
             ))}
           </nav>
-          <div className="mt-6 rounded-2xl border border-[color:var(--border)] bg-white/70 p-4 text-xs text-[color:var(--muted)]">
-            <p className="font-semibold text-[color:var(--foreground)]">Usage</p>
-            <p className="mt-2">4.2k / 10k pages</p>
-            <div className="mt-3 h-2 w-full rounded-full bg-[color:var(--panel-strong)]">
-              <div className="h-2 w-2/5 rounded-full bg-[color:var(--accent)]" />
-            </div>
-          </div>
         </aside>
         <div className="space-y-6">
           <header className="flex flex-col gap-4 rounded-3xl border border-[color:var(--border)] bg-[color:var(--panel)] p-6 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted-2)]">
-                Havoc Data Forge
+                LoopList Workspace
               </p>
-              <h1 className="text-2xl font-semibold">Operational dashboard</h1>
-              <p className="mt-1 text-sm text-[color:var(--muted)]">
-                Signed in as {user.name ?? user.email}
-              </p>
+              <h1 className="text-2xl font-semibold">Shared routines</h1>
             </div>
             <div className="flex flex-wrap items-center gap-3 text-sm">
               <Link
-                href="/jobs/new"
+                href="/lists/new"
                 className="rounded-full bg-[color:var(--foreground)] px-4 py-2 font-semibold text-[color:var(--background)] shadow-elevated"
               >
-                New run
+                New list
               </Link>
               <Link
-                href="/docs"
+                href="/settings"
                 className="rounded-full border border-[color:var(--border)] px-4 py-2 font-semibold text-[color:var(--foreground)]"
               >
-                Docs
+                Settings
               </Link>
             </div>
           </header>

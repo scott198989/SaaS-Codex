@@ -1,23 +1,18 @@
-import Link from "next/link";
-
-const recentRuns = [
+const sampleLists = [
   {
-    id: "RUN-2041",
-    status: "Cleaning",
-    detail: "Legal bundle (21 files)",
-    progress: "62%",
+    name: "Morning kitchen reset",
+    nextUp: "Jordan",
+    due: "Today, 7:00 AM",
   },
   {
-    id: "RUN-2038",
-    status: "Ready",
-    detail: "Support knowledge base",
-    progress: "100%",
+    name: "Trash + recycling",
+    nextUp: "Ari",
+    due: "Wednesday",
   },
   {
-    id: "RUN-2035",
-    status: "Queued",
-    detail: "OCR backlog",
-    progress: "0%",
+    name: "Closing checklist",
+    nextUp: "Team A",
+    due: "Tonight, 9:00 PM",
   },
 ];
 
@@ -28,47 +23,25 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted-2)]">
-              Ingestion
+              Overview
             </p>
-            <h2 className="text-xl font-semibold">Start a new processing run</h2>
+            <h2 className="text-xl font-semibold">Upcoming rotations</h2>
           </div>
-          <Link
-            href="/jobs/new"
-            className="rounded-full border border-[color:var(--border)] px-4 py-2 text-sm font-semibold text-[color:var(--foreground)]"
-          >
-            Configure
-          </Link>
+          <button className="rounded-full border border-[color:var(--border)] px-4 py-2 text-xs font-semibold text-[color:var(--foreground)]">
+            Adjust schedule
+          </button>
         </div>
-        <div className="mt-6 grid gap-4 rounded-2xl border border-dashed border-[color:var(--border)] bg-[color:var(--panel)] p-6 text-sm text-[color:var(--muted)]">
-          <p className="font-semibold text-[color:var(--foreground)]">Drag files or folders here</p>
-          <p>
-            Drop PDFs, DOCX, PPTX, images, HTML, notebooks, ZIP/TAR archives, or
-            paste a public URL to ingest remotely.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <button className="rounded-full bg-[color:var(--foreground)] px-4 py-2 text-xs font-semibold text-[color:var(--background)]">
-              Upload batch
-            </button>
-            <button className="rounded-full border border-[color:var(--border)] px-4 py-2 text-xs font-semibold text-[color:var(--foreground)]">
-              Connect source
-            </button>
-          </div>
-        </div>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {[
-            ["Cleaning profile", "Legal + policy docs"],
-            ["Output", "Text JSONL + Q/A JSONL"],
-            ["Partition strategy", "Archive/review 90/10"],
-          ].map(([title, detail]) => (
+        <div className="mt-6 space-y-4">
+          {sampleLists.map((list) => (
             <div
-              key={title}
+              key={list.name}
               className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--panel)] p-4"
             >
-              <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted-2)]">
-                {title}
+              <p className="text-sm font-semibold text-[color:var(--foreground)]">
+                {list.name}
               </p>
-              <p className="mt-2 text-sm font-semibold text-[color:var(--foreground)]">
-                {detail}
+              <p className="mt-1 text-xs text-[color:var(--muted)]">
+                Next up: {list.nextUp} · {list.due}
               </p>
             </div>
           ))}
@@ -76,43 +49,19 @@ export default function DashboardPage() {
       </section>
 
       <section className="rounded-3xl border border-[color:var(--border)] bg-[color:var(--panel)] p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted-2)]">
-              Recent runs
-            </p>
-            <h2 className="text-xl font-semibold">Pipeline activity</h2>
+        <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted-2)]">
+          Reminder health
+        </p>
+        <h2 className="mt-2 text-xl font-semibold">This week</h2>
+        <div className="mt-6 space-y-4 text-sm text-[color:var(--muted)]">
+          <div className="rounded-2xl border border-[color:var(--border)] bg-white/70 p-4">
+            <p className="font-semibold text-[color:var(--foreground)]">12 reminders sent</p>
+            <p className="mt-2">No missed rotations in the last 7 days.</p>
           </div>
-          <Link
-            href="/jobs"
-            className="text-sm font-semibold text-[color:var(--foreground)]"
-          >
-            View all
-          </Link>
-        </div>
-        <div className="mt-6 space-y-4">
-          {recentRuns.map((run) => (
-            <div
-              key={run.id}
-              className="rounded-2xl border border-[color:var(--border)] bg-white/70 p-4"
-            >
-              <div className="flex items-center justify-between text-sm">
-                <div>
-                  <p className="font-semibold text-[color:var(--foreground)]">{run.id}</p>
-                  <p className="text-[color:var(--muted)]">{run.detail}</p>
-                </div>
-                <span className="rounded-full bg-[color:var(--panel-strong)] px-3 py-1 text-xs">
-                  {run.status}
-                </span>
-              </div>
-              <div className="mt-3 h-2 w-full rounded-full bg-[color:var(--panel-strong)]">
-                <div
-                  className="h-2 rounded-full bg-[color:var(--accent-2)]"
-                  style={{ width: run.progress }}
-                />
-              </div>
-            </div>
-          ))}
+          <div className="rounded-2xl border border-[color:var(--border)] bg-white/70 p-4">
+            <p className="font-semibold text-[color:var(--foreground)]">Next automation</p>
+            <p className="mt-2">Weekly grocery list shares on Sunday, 6:00 PM.</p>
+          </div>
         </div>
       </section>
     </div>

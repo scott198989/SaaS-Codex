@@ -3,30 +3,28 @@ import { AppPage } from "@/components/app-page";
 export default function SettingsPage() {
   return (
     <AppPage
-      title="Workspace settings"
-      description="Control members, API keys, and export defaults."
+      title="Settings"
+      description="Control members, timezone, and notification preferences."
     >
       <div className="grid gap-4 md:grid-cols-2">
         <div className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--panel)] p-4">
           <p className="text-sm font-semibold text-[color:var(--foreground)]">
-            Workspace details
+            Workspace timezone
           </p>
-          <p className="mt-1 text-xs text-[color:var(--muted)]">
-            Primary workspace · US-East region
-          </p>
+          <p className="mt-1 text-xs text-[color:var(--muted)]">America/Chicago (CDT)</p>
           <button className="mt-4 rounded-full border border-[color:var(--border)] px-4 py-2 text-xs font-semibold text-[color:var(--foreground)]">
-            Edit details
+            Update timezone
           </button>
         </div>
         <div className="rounded-2xl border border-[color:var(--border)] bg-white/70 p-4">
           <p className="text-sm font-semibold text-[color:var(--foreground)]">
-            API keys
+            Members
           </p>
           <p className="mt-1 text-xs text-[color:var(--muted)]">
-            Rotate keys and set ingestion limits.
+            Invite people and assign roles.
           </p>
           <button className="mt-4 rounded-full bg-[color:var(--foreground)] px-4 py-2 text-xs font-semibold text-[color:var(--background)]">
-            Generate key
+            Invite member
           </button>
         </div>
       </div>

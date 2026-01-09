@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
-import {
-  JetBrains_Mono,
-  Source_Sans_3,
-  Space_Grotesk,
-} from "next/font/google";
+import { Fraunces, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const display = Space_Grotesk({
+const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
 });
 
-const body = Source_Sans_3({
+const body = Plus_Jakarta_Sans({
   variable: "--font-body",
   subsets: ["latin"],
 });
@@ -22,9 +18,9 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Havoc Data Forge",
+  title: "LoopList",
   description:
-    "Enterprise-grade ingestion and cleaning for audited structured data exports.",
+    "Shared rotating checklists and reminders for homes, roommates, and small teams.",
 };
 
 export default function RootLayout({
